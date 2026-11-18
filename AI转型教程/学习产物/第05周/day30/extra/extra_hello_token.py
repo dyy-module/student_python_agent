@@ -79,16 +79,16 @@ if __name__ == '__main__':
     ask_q('token是什么')  #总token 812 输入 63 输出 749
     long_txt = '''
     ## 引用
-结果由"tool_1"返回。其每条消息称为“来源”，引用ID为首次出现的【turn\d+\w+\d+】，如【turn2file1】，其中turn2file1就是来源引用ID。
-引用指向tool_1来源，可引用一个或多个。
-单来源必须写为{CITATION_START}cite{CITATION_DELIMITER}turn\d+\w+\d+{CITATION_STOP}，如{CITATION_START}cite{CITATION_DELIMITER}turn2file5{CITATION_STOP}。
-多来源必须写为{CITATION_START}cite{CITATION_DELIMITER}turn\d+\w+\d+{CITATION_DELIMITER}turn\d+\w+\d+{CITATION_DELIMITER}...{CITATION_STOP}，如{CITATION_START}cite{CITATION_DELIMITER}turn2file5{CITATION_DELIMITER}turn2file1{CITATION_DELIMITER}...{CITATION_STOP}。
-不要把引用放进Markdown加粗、斜体或代码围栏内，否则无法正确展示；放在这些格式外。围栏外的引用也不得与结束围栏处于同一行。
-绝不直接在正文写turn\d+\w+\d+，必须包在{CITATION_START}...{CITATION_STOP}中。
-- 默认段末引用，段落长时可行内引用，用户指定位置时按其要求。
-- 引用放标点之后。
-- 不把全部引用集中在回复末尾。
-- 不让某行或某段只有引用。
-一句话总结一下，不要超过20字
+    结果由"tool_1"返回。其每条消息称为“来源”，引用ID为首次出现的【turn\d+\w+\d+】，如【turn2file1】，其中turn2file1就是来源引用ID。
+    引用指向tool_1来源，可引用一个或多个。
+    单来源必须写为{CITATION_START}cite{CITATION_DELIMITER}turn\d+\w+\d+{CITATION_STOP}，如{CITATION_START}cite{CITATION_DELIMITER}turn2file5{CITATION_STOP}。
+    多来源必须写为{CITATION_START}cite{CITATION_DELIMITER}turn\d+\w+\d+{CITATION_DELIMITER}turn\d+\w+\d+{CITATION_DELIMITER}...{CITATION_STOP}，如{CITATION_START}cite{CITATION_DELIMITER}turn2file5{CITATION_DELIMITER}turn2file1{CITATION_DELIMITER}...{CITATION_STOP}。
+    不要把引用放进Markdown加粗、斜体或代码围栏内，否则无法正确展示；放在这些格式外。围栏外的引用也不得与结束围栏处于同一行。
+    绝不直接在正文写turn\d+\w+\d+，必须包在{CITATION_START}...{CITATION_STOP}中。
+    - 默认段末引用，段落长时可行内引用，用户指定位置时按其要求。
+    - 引用放标点之后。
+    - 不把全部引用集中在回复末尾。
+    - 不让某行或某段只有引用。
+    一句话总结一下，不要超过20字
     '''
     ask_q(long_txt)#总token 967 输入 415 输出 552
