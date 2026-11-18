@@ -7,3 +7,4 @@ python*
 pyvenv.cfg
 .qoder
 .gitKeep
+.env
