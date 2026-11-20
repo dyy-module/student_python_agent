@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import os
+from dotenv import load_dotenv
 
 
 @dataclass
@@ -13,3 +14,6 @@ def load_config() -> Config:
         DASHSCOPE_API_KEY=os.getenv('DASHSCOPE_API_KEY', '').strip(),
         BASE_URL="https://ws-l9ip5sskm8s5scpy.cn-beijing.maas.aliyuncs.com/compatible-mode/v1"
     )
+
+load_dotenv()
+config = load_config()

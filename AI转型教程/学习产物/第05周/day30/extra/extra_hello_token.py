@@ -21,12 +21,7 @@ from openai import (
     InternalServerError,
     APIError,
 )
-from config import load_config
-from dotenv import load_dotenv
-
-load_dotenv()
-config = load_config()
-
+from config import config
 
 def get_client():
     if not config.DASHSCOPE_API_KEY:

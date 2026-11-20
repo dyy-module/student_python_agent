@@ -15,7 +15,6 @@
 # 【加分可选】把 base_url/model 名抽成变量并注明"换端点只改这两处",体会 OpenAI 兼容的意义(不展开多端点切换)
 # ================= 以下开始盲写(壳不得改动下方实现行) =================
 from openai import (
-    OpenAI,
     AuthenticationError,
     PermissionDeniedError,
     NotFoundError,
@@ -26,21 +25,7 @@ from openai import (
     InternalServerError,
     APIError,
 )
-from config import load_config
-from dotenv import load_dotenv
-
-load_dotenv()
-config = load_config()
-
-
-def get_client():
-    if not config.DASHSCOPE_API_KEY:
-        raise SystemExit("错误：未配置 OPENAI_API_KEY", "请在.env 文件补充OPENAI_API_KEY")
-    client = OpenAI(
-        api_key=config.DASHSCOPE_API_KEY,
-        base_url=config.BASE_URL,
-    )
-    return client
+from my_client import creat_client
 
 
 def print_info(completion):
@@ -69,7 +54,7 @@ def ask_completion(question, stream=False):
     """调用ai 回答问题"""
 
     if isinstance(question, str):
-        client = get_client()
+        client = creat_client()
         messages = [{"role": "user", "content": question}]
         completion = client.chat.completions.create(
             model="qwen3.8-flash",
