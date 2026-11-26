@@ -8,3 +8,4 @@ pyvenv.cfg
 .qoder
 .gitKeep
 .env
+settings.json
