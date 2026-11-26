@@ -46,8 +46,39 @@
 1. 给定身份：设置身份、语气等设置
 2. 构建上下文：大模型没有记忆，需要工程记录内容，每次投给大模型
 3. 创建json摘要，方便系统使用
-    
+
+
+个人模板：
+```python
+sys_txt = "你是一位 XX 专家，擅长XX,从专业的角度xx"
+
+def format_qs(msg):
+    ''' 格式化问题'''
+    format_out=f'''
+    按照步骤思考：
+    1.总结文本内容
+    2.分析问题
+    3.反向校验结论
+    按照一下格式回答问题：
+    内容总结：xxx
+    分析过程：xxx
+    结论：xxx
+    回答一下```包括的问题
+    ```{msg}```
+    '''
+    return format_out
+
+demo_msg=[
+    {"role":"system","content":sys_txt},
+    {"role":"user","content":"xx示例问题"},
+    {"role":"assistant","content":"xx回答方式"},
+    {"role":"user","content":format_qs('问题内容')},
+]
+
+```
+### def 封装 ask_ai 复用请求
+见主产物
 
 ## 两行自检
-- ① 我说不出出处的知识点:
+- ① 我说不出出处的知识点:无
 - ② 学了但没落进任何行为的知识点:json数据输出

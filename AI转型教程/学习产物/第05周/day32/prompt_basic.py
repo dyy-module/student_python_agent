@@ -34,7 +34,7 @@ def ask_ai(msgs):
         return None,err.message
     except BadRequestError as err:
         err_msg = str(err.message).lower()
-        if 'blance' in err_msg or 'quota' in err_msg or 'insufficient' in err_msg:
+        if 'balance' in err_msg or 'quota' in err_msg or 'insufficient' in err_msg:
             return None,'账户余额不足，请充值。'
         elif  "context" in err_msg or "length" in err_msg or "maximum" in err_msg:
             return None,"输入内容太长，超出了模型的最大上下文限制。"
@@ -57,8 +57,7 @@ def write_md(str,file_name):
         output.mkdir(parents=True,exist_ok=True)
         file_path = output.joinpath(f'{file_name}.md')
         file_path.write_text(str,encoding='utf-8')
-        print(file_path)
-    except ImportError:
+    except PermissionError:
         print('无权限创建文件')
     except IOError as err:
         print(err)
@@ -69,10 +68,11 @@ def main(msgs,file_name):
     if err:
             print(err)
     else:
-        write_md(res,file_name)    
+        write_md(res,file_name)
+        print(res)
     
 if __name__=='__main__':
-    req='如何待本月比亚迪股票'
+    req='如何看待本月比亚迪股票'
     print('-'*5,'直接问','-'*5)
     demo_msg_1 =[{'role':'user','content':req}]
     main(demo_msg_1,'直接问')
@@ -80,7 +80,7 @@ if __name__=='__main__':
     time.sleep(5)
     print('-'*5,'设置角色','-'*5)
     demo_msg_2=[
-        {'role':'system','content':'你是以为股票投资专家,请专业的回答问题'},
+        {'role':'system','content':'你是一位股票投资专家,请专业的回答问题'},
         {'role':'user','content':req}
     ]
     main(demo_msg_2,'设置角色')
@@ -95,28 +95,28 @@ if __name__=='__main__':
     简明扼要，每项不超过100个字
     问题：```{req}```
     '''
-    
+    # 这里指导模型如何回答
+    # 先回答趋势原因
+    # 再根据趋势推到投资建议
     demo_msg_3=[
-        {'role':'system','content':'你是以为股票投资专家,请专业的回答问题'},
+        {'role':'system','content':'你是一位股票投资专家,请专业的回答问题'},
         {'role':'user','content':req_f}
     ]
     main(demo_msg_3,'设置指令')
     
     time.sleep(5)
-    print('-'*5,'设置少量样本','-'*5)
+    print('-'*5,'user+ 设置少量样本 +指令','-'*5)
     req_f_2=f'''
-    请以专业的角度回答下放```包括的内容
-    用户：如何待本月宁德时代股票
-    回答：
-        数据：A股收盘价 208.42元，5月7日高点467.06元，回撤约55%。A股单日跌幅-8.33%，总市值跌破1万亿元关口。
-        总结：市场正经历一次显著的定价逻辑重估。股价持续承压，核心在于其盈利能力遭遇了来自政策、行业竞争和上游原材料的多重挤压，尽管其全球龙头地位和长期增长逻辑依然稳固
-        原因：1.政策税负直接冲击利润。2.行业竞争加剧，客户“去宁化”。3.上游原料价格暴跌与定价逻辑切换。
-    用户：{req}
+    数据：A股收盘价 208.42元，5月7日高点467.06元，回撤约55%。A股单日跌幅-8.33%，总市值跌破1万亿元关口。
+    总结：市场正经历一次显著的定价逻辑重估。股价持续承压，核心在于其盈利能力遭遇了来自政策、行业竞争和上游原材料的多重挤压，尽管其全球龙头地位和长期增长逻辑依然稳固
+    原因：1.政策税负直接冲击利润。2.行业竞争加剧，客户“去宁化”。3.上游原料价格暴跌与定价逻辑切换。
     '''
-    
     demo_msg_4=[
-        {'role':'user','content':req_f_2}
+        {'role':'system','content':'你是一位股票投资专家,请专业的回答问题'},
+        {'role':'user','content':'如何看待本月宁德时代股票'},
+        {'role':'assistant','content':req_f_2},
+        {'role':'user','content':req_f}
     ]
-    main(demo_msg_4,'少量样本')
+    main(demo_msg_4,'user+样本+指令')
     
     

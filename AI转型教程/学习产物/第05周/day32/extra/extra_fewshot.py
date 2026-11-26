@@ -27,7 +27,7 @@ def ask_ai(messages)->Tuple[Optional[str],Optional[str]]:
         return None,'请求太频繁或额度已用尽，请稍后再试'
     except BadRequestError as err:
         err_msg = str(err.message).lower()
-        if 'blance' in err_msg or 'quota' in err_msg or 'insufficient' in err_msg:
+        if 'balance' in err_msg or 'quota' in err_msg or 'insufficient' in err_msg:
             return None,'账户余额不足，请充值。'
         elif  "context" in err_msg or "length" in err_msg or "maximum" in err_msg:
             return None,"输入内容太长，超出了模型的最大上下文限制。"
@@ -54,6 +54,16 @@ def main(messages):
     """
     modal_msg=[
         {"role":"system","content":"你是一名专业的电商运营人员，善于分析用户评论情绪"},
+        {"role":"user","content":"这个怎么掉漆了"},
+        {"role":"assistant","content":"""
+         用户情感倾向:不满
+         解决方案：联系顾客，安抚客户情绪，换货或补差价。联系产品，查清原因，补救后续产品
+         """},
+        {"role":"user","content":"造型真可爱，我儿子超喜欢"},
+        {"role":"assistant","content":"""
+            用户情感倾向:正面
+            解决方案：给客户发送谢谢等积极回复
+            """},
         {"role":"user","content":demo_prompt}
     ]
     res,err = ask_ai(modal_msg)
