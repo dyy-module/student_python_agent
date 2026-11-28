@@ -8,3 +8,4 @@ pyvenv.cfg
 .gitKeep
 .env
 settings.json
+*output*

@@ -1,7 +1,10 @@
 # ===== day34 跟练 extra v3.1(实现由你本人盲写于本注释下方) =====
 # 文件:extra_summarizer.py | 位置:学习产物\第05周\day34\extra\ | ≤150 行 | 禁:明文 key;Schema 校验(第13周【超前】)
 #
-# 【题目·逐字抄自教程「跟练清单」】文本摘要小工具——用 input()(或复用第03周文件读取)获取一段文本,调模型用 JSON Mode 输出 {summary, keywords} 并解析打印。作为 cli_assistant 结构化模式的独立精简版,练举一反三。key 从环境变量读。
+# 【题目·逐字抄自教程「跟练清单」】文本摘要小工具——
+#   用 input()(或复用第03周文件读取)获取一段文本,调模型用 JSON Mode 输出 {summary, keywords} 并解析打印。
+#   作为 cli_assistant 结构化模式的独立精简版,练举一反三。
+#   key 从环境变量读。
 #   知识点/讲解指针见周教程 Day34 段(本壳不复述)
 # 【越界→隔离目录】长文本分块/摘要压缩(第06周 Memory)→放 day34/beyond/
 # 【教材·只读】见周教程 Day34「教材与章节」段(DeepSeek;官方 json 复习)
