@@ -14,9 +14,6 @@ import json
 
 def ask_ai(msgs,response_type = "text"):
     '''调用ai,兜底错误，返回结果'''
-    response_format={
-        "type": response_type,
-    }
     try:
         client = creat_client()
         res = client.chat.completions.create(
@@ -42,11 +39,11 @@ def ask_ai(msgs,response_type = "text"):
     except Exception as err:
         return None,f'未知错误，信息：{str(err)}'
 
-def parse_json(s, default={}):
+def parse_json(s):
     try:
         return json.loads(s)
     except (json.JSONDecodeError, TypeError):
-        return default       
+        return {}       
 
 def ask_json(msg):
     '''出入参数结构化，调用ai'''
@@ -66,7 +63,7 @@ def ask_json(msg):
         {"role":"system","content":sys_model},
         {"role":"user","content":msg},
     ]
-    res, err = ask_ai(msgs)
+    res, err = ask_ai(msgs,response_type="json_object")
     if err:
         print(err)
         return {}

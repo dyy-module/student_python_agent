@@ -15,7 +15,7 @@ class MessageHistory:
     """
 
     def __init__(self, messages=None) -> None:
-        self.__messages: List[Dict[str, Any]] = messages if isinstance(messages,list) else []
+        self.__messages: List[Dict[str, Any]] = messages or []
         self.__usages: List[Dict[str, int]] = []
 
     def add_system(self, content: str) -> None:
@@ -43,7 +43,14 @@ class MessageHistory:
         """
         self.__messages.append({"role": "assistant", "content": content})
         if usage:
-            self.__usages.append(usage)
+            if isinstance(usage,dict):
+                self.__usages.append(usage)
+            else:
+                self.__usages.append({
+                    "total_tokens":usage.total_tokens,
+                    "prompt_tokens":usage.prompt_tokens,
+                    "completion_tokens":usage.completion_tokens
+                })
 
     def del_last(self):
         '''删除最后一条消息'''
